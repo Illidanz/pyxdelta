@@ -1,9 +1,7 @@
 #include <assert.h>
 #include "xdelta3.h"
 #include "xdelta3.c"
-#define ssize_t pyssize_t
 #include <Python.h>
-#undef ssize_t
 
 static PyObject *method_run(PyObject *self, PyObject *args, PyObject *kwargs)
 {
