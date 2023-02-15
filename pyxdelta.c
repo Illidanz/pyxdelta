@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "xdelta3.h"
 #include "xdelta3.c"
 #include <Python.h>
