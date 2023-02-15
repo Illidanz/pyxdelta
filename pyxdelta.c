@@ -1,6 +1,12 @@
 #include <assert.h>
+#ifdef XDWORKAROUND
+#define ssize_t ssize_t_wrap
+#endif
 #include "xdelta3.h"
 #include "xdelta3.c"
+#ifdef XDWORKAROUND
+#undef ssize_t
+#endif
 #include <Python.h>
 
 static PyObject *method_run(PyObject *self, PyObject *args, PyObject *kwargs)

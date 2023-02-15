@@ -21,6 +21,7 @@ if os.name == 'nt':
     MACROS.append(("XD3_WIN32", "1"))
     MACROS.append(("XD3_STDIO", "0"))
     MACROS.append(("XD3_POSIX", "0"))
+    MACROS.APPEND(("XDWORKAROUND", ""))
     MACROS.append(("WIN32", ""))
     EXTRA_COMPILE_ARGS = []
 else:
