@@ -20,10 +20,12 @@ if os.name == 'nt':
     MACROS.append(("XD3_WIN32", "1"))
     MACROS.append(("XD3_STDIO", "0"))
     MACROS.append(("XD3_POSIX", "0"))
+    EXTRA_COMPILE_ARGS = []
 else:
     MACROS.append(("XD3_WIN32", "0"))
-    MACROS.append(("XD3_STDIO", "0"))
+    MACROS.append(("XD3_STDIO", "1"))
     MACROS.append(("XD3_POSIX", "1"))
+    EXTRA_COMPILE_ARGS = ["-Wall", "-Wshadow", "-fno-builtin", "-Wextra", "-Wsign-compare", "-Wformat=2", "-Wno-format-nonliteral", "-Wno-unused-parameter", "-Wno-unused-function"]
 
 INCLUDES = ["xdelta/xdelta3"]
 SOURCES = ["pyxdelta.c"]
@@ -40,7 +42,7 @@ def main():
               "Programming Language :: Python :: 3",
               "License :: OSI Approved :: MIT License",
           ],
-          ext_modules=[Extension("pyxdelta", SOURCES, include_dirs=INCLUDES, define_macros=MACROS)]
+          ext_modules=[Extension("pyxdelta", SOURCES, include_dirs=INCLUDES, define_macros=MACROS, extra_compile_args=EXTRA_COMPILE_ARGS)]
         )
 
 if __name__ == "__main__":
