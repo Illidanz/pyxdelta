@@ -1,6 +1,6 @@
 import os
 import sys
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -27,7 +27,7 @@ if os.name == 'nt':
 else:
     MACROS.append(("XD3_WIN32", "0"))
     MACROS.append(("XD3_STDIO", "1"))
-    MACROS.append(("XD3_POSIX", "1"))
+    MACROS.append(("XD3_POSIX", "0"))
     EXTRA_COMPILE_ARGS = ["-Wall", "-Wshadow", "-fno-builtin", "-Wextra", "-Wsign-compare", "-Wformat=2", "-Wno-format-nonliteral", "-Wno-unused-parameter", "-Wno-unused-function"]
 
 INCLUDES = ["xdelta/xdelta3"]
@@ -35,7 +35,7 @@ SOURCES = ["pyxdelta.c"]
 
 def main():
     setup(name="pyxdelta",
-          version="0.1.0",
+          version="0.1.1",
           author="Illidan",
           description="Python interface for xdelta.",
           long_description=long_description,
