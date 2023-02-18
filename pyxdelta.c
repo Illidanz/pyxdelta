@@ -9,6 +9,8 @@
 #undef ssize_t
 #endif
 
+#define MALLOC_CHECK(var) if (var == NULL) { PyErr_NoMemory(); return NULL; }
+
 #include <Python.h>
 
 static PyObject *method_run(PyObject *self, PyObject *args, PyObject *kwargs)
@@ -25,7 +27,8 @@ static PyObject *method_run(PyObject *self, PyObject *args, PyObject *kwargs)
         return NULL;
 
     int argc = 7;
-    char** argv = malloc(sizeof(char*) * argc);
+    char** argv = (char**)PyMem_Malloc(sizeof(char*) * (argc + 1));
+    MALLOC_CHECK(argv);
     argv[0] = "xdelta3";
     argv[1] = "-f";
     argv[2] = "-e";
@@ -33,8 +36,9 @@ static PyObject *method_run(PyObject *self, PyObject *args, PyObject *kwargs)
     argv[4] = infile;
     argv[5] = outfile;
     argv[6] = patchfile;
+    argv[7] = NULL;
     int result = xd3_main_cmdline(argc, argv);
-    free(argv);
+    PyMem_Free(argv);
     return PyBool_FromLong((long)(result == 0));
 }
 
