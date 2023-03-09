@@ -41,6 +41,7 @@ jobs:
   upload_pypi:
     needs: [build_wheels, make_sdist]
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'release' }}
     steps:
     - uses: actions/download-artifact@v3
       with:
