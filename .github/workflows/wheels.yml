@@ -11,18 +11,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, windows-latest, macos-13, macos-14]
 
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.16.5
-        env:
-          CIBW_ARCHS_MACOS: x86_64 arm64
+        uses: pypa/cibuildwheel@v2.17.0
       - uses: actions/upload-artifact@v4
         with:
+          name: artifact-wheel-${{ matrix.os }}
           path: ./wheelhouse/*.whl
           retention-days: 7
 
@@ -37,6 +36,7 @@ jobs:
       run: pipx run build --sdist
     - uses: actions/upload-artifact@v4
       with:
+        name: artifact-sdist
         path: dist/*.tar.gz
         retention-days: 7
 
@@ -47,8 +47,9 @@ jobs:
     steps:
     - uses: actions/download-artifact@v4
       with:
-        name: artifact
+        pattern: artifact-*
         path: dist
+        merge-multiple: true
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__
