@@ -9,4 +9,6 @@ Python interface for xdelta.
 import pyxdelta
 
 pyxdelta.run("source.bin", "target.bin", "patch.xdelta")
+
+pyxdelta.decode("source.bin", "patch.xdelta", "target.bin")
 ```

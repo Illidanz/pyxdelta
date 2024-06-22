@@ -13,6 +13,35 @@
 
 #include <Python.h>
 
+static PyObject *method_decode(PyObject *self, PyObject *args, PyObject *kwargs)
+{
+    char *infile = NULL;
+    char *patchfile = NULL;
+    char *outfile = NULL;
+
+    static char *kwlist[] = {"infile", "patchfile", "outfile",
+                                NULL};
+
+    if(!PyArg_ParseTupleAndKeywords(args, kwargs, "sss", kwlist,
+                                    &infile, &patchfile, &outfile))
+        return NULL;
+
+    int argc = 7;
+    char** argv = (char**)PyMem_Malloc(sizeof(char*) * (argc + 1));
+    MALLOC_CHECK(argv);
+    argv[0] = "xdelta3";
+    argv[1] = "-e";
+    argv[2] = "-f";
+    argv[3] = "-s";
+    argv[4] = infile;
+    argv[5] = patchfile;
+    argv[6] = outfile;
+    argv[7] = NULL;
+    int result = xd3_main_cmdline(argc, argv);
+    PyMem_Free(argv);
+    return PyBool_FromLong((long)(result == 0));
+}
+
 static PyObject *method_run(PyObject *self, PyObject *args, PyObject *kwargs)
 {
     char *infile = NULL;
@@ -44,6 +73,7 @@ static PyObject *method_run(PyObject *self, PyObject *args, PyObject *kwargs)
 
 static PyMethodDef PyxdeltaMethods[] = {
     {"run", (PyCFunction)method_run, METH_VARARGS | METH_KEYWORDS, "Python interface for xdelta."},
+    {"decode", (PyCFunction)method_decode, METH_VARARGS | METH_KEYWORDS, "Create xdelta patch."},
     {NULL, NULL, 0, NULL}
 };
 
