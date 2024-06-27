@@ -72,8 +72,8 @@ static PyObject *method_run(PyObject *self, PyObject *args, PyObject *kwargs)
 }
 
 static PyMethodDef PyxdeltaMethods[] = {
-    {"run", (PyCFunction)method_run, METH_VARARGS | METH_KEYWORDS, "Python interface for xdelta."},
-    {"decode", (PyCFunction)method_decode, METH_VARARGS | METH_KEYWORDS, "Create xdelta patch."},
+    {"run", (PyCFunction)method_run, METH_VARARGS | METH_KEYWORDS, "Create xdelta patch."},
+    {"decode", (PyCFunction)method_decode, METH_VARARGS | METH_KEYWORDS, "Decode xdelta patch."},
     {NULL, NULL, 0, NULL}
 };
 
