@@ -35,7 +35,7 @@ SOURCES = ["pyxdelta.c"]
 
 def main():
     setup(name="pyxdelta",
-          version="0.2.1",
+          version="0.2.2",
           author="Illidan",
           description="Python interface for xdelta.",
           long_description=long_description,
