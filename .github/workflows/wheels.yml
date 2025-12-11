@@ -11,15 +11,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-13, macos-14]
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.22
-      - uses: actions/upload-artifact@v4
+        uses: pypa/cibuildwheel@v3.3
+      - uses: actions/upload-artifact@v5
         with:
           name: artifact-wheel-${{ matrix.os }}
           path: ./wheelhouse/*.whl
@@ -29,12 +29,12 @@ jobs:
     name: Make SDist
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: recursive
     - name: Build SDist
       run: pipx run build --sdist
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v5
       with:
         name: artifact-sdist
         path: dist/*.tar.gz
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'release' }}
     steps:
-    - uses: actions/download-artifact@v4
+    - uses: actions/download-artifact@v6
       with:
         pattern: artifact-*
         path: dist
