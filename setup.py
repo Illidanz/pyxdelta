@@ -45,8 +45,7 @@ def main():
           classifiers=[
               "Programming Language :: Python :: 3",
           ],
-          packages = ["pyxdelta"],
-          package_data={"pyxdelta": ["__init__.pyi"]},
+          data_files=[("", ["pyxdelta.pyi"])],
           ext_modules=[Extension("pyxdelta", SOURCES, include_dirs=INCLUDES, define_macros=MACROS, extra_compile_args=EXTRA_COMPILE_ARGS)]
         )
 
