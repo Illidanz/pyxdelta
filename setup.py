@@ -33,9 +33,9 @@ else:
 INCLUDES = ["xdelta/xdelta3"]
 SOURCES = ["pyxdelta.c"]
 
-def main():
+if __name__ == "__main__":
     setup(name="pyxdelta",
-          version="0.2.3",
+          version="0.3.0",
           author="Illidan",
           description="Python interface for xdelta.",
           long_description=long_description,
@@ -46,8 +46,6 @@ def main():
               "Programming Language :: Python :: 3",
           ],
           data_files=[("", ["pyxdelta.pyi"])],
-          ext_modules=[Extension("pyxdelta", SOURCES, include_dirs=INCLUDES, define_macros=MACROS, extra_compile_args=EXTRA_COMPILE_ARGS)]
+          ext_modules=[Extension("pyxdelta", SOURCES, include_dirs=INCLUDES, define_macros=MACROS, extra_compile_args=EXTRA_COMPILE_ARGS)],
+          python_requires=">=3.10",
         )
-
-if __name__ == "__main__":
-    main()
